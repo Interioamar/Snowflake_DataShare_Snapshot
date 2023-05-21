@@ -1,5 +1,5 @@
 ---==================================================================================================================================================
---                                    ***** Start here only when are all set with Primary Account tasks are completed
+--                                    ***** Start here only when all  Source Snowflake Account tasks are completed
 ---=========================================================================================================================
 
 /*STEP7 : Switch to another snowflake account and see the private sharing inbound data share where we can observe the data shared by primary ACCOUNT
