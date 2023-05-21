@@ -85,7 +85,7 @@ Please note here I am sharing all the secured views from schema to enabled chang
 CALL MY_DB.PRODUCTS.ENABLE_CHANGE_TRACK_ON_SHARE('MY_DB','PRODUCTS');  --Here MY_DB is database and PRODUCTS is schema of the database shared
 
 ---==================================================================================================================================================
---                                    ***** YOU ARE ALL SET WITH PRIMARY ACCOUNT. Lets Move to secondary account
+--                                    ***** YOU ARE ALL SET WITH SOURCE SNOWFLAKE ACCOUNT. Lets Move to CONSUMER SNOWFLAKE ACOUNT
 ---=========================================================================================================================
 
 
