@@ -65,7 +65,7 @@ Target : Snowflake(Consumer) SF2
 Language Used: SQL, JavaScript
 
 ### **Flow Daigram/Approach design**
-![image2](https://github.com/Interioamar/Snowflake_DataShare_Snapshot/assets/107593984/33480fb2-f19b-4fe3-a171-b8c899046b7e))
+![image2](https://github.com/Interioamar/Snowflake_DataShare_Snapshot/assets/107593984/33480fb2-f19b-4fe3-a171-b8c899046b7e)
 
 
 
