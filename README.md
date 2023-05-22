@@ -1,5 +1,5 @@
 <p align="center">
-<img src=https://github.com/Interioamar/Snowflake_data_snapshot/assets/107593984/876389ef-b44a-48f5-a9fc-a481504c51ac/>
+<img src=https://github.com/Interioamar/Snowflake_DataShare_Snapshot/assets/107593984/6e3914b3-c97f-4b2b-9048-6f3814615228/>
 </p>
 
 ## **Creating snapshot for DataShare objects and streaming the changed data from Data Share to snapshot objects**
@@ -65,7 +65,7 @@ Target : Snowflake(Consumer) SF2
 Language Used: SQL, JavaScript
 
 ### **Flow Daigram/Approach design**
-![image2](https://github.com/Interioamar/Snowflake_data_snapshot/assets/107593984/c6cb5496-da13-4794-a322-d0c74fee2e4d)
+![image2](https://github.com/Interioamar/Snowflake_DataShare_Snapshot/assets/107593984/33480fb2-f19b-4fe3-a171-b8c899046b7e))
 
 
 
