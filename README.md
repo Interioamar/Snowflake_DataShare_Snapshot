@@ -6,11 +6,11 @@
 
 **Objective:**
 
-Snowflake provide datashare feature which enables the read/view access
-to the consumer snowflake account when it is shared to another snowflake
+Snowflake provide datashare feature which enables the read  access to the objects shared to the consumer 
+snowflake account when it is shared to another snowflake
 account within or outside organization.
 
-Consider a scenario where user what to do testing with source objects
+Consider a scenario where user wanted to do testing with source objects
 and target objects where target objects are developed in another account
 of Snowflake . So user need snapshot (Persistant/Physicallized) data
 from inbound datashare into new database which is persistant so that
