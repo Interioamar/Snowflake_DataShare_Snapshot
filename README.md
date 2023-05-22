@@ -2,7 +2,7 @@
 <img src=https://github.com/Interioamar/Snowflake_data_snapshot/assets/107593984/876389ef-b44a-48f5-a9fc-a481504c51ac/>
 </p>
 
-## **Creating snapshot for DataShare objects and streaming the new data from Data Share**
+## **Creating snapshot for DataShare objects and streaming the changed data from Data Share to snapshot objects**
 
 **Objective:**
 
