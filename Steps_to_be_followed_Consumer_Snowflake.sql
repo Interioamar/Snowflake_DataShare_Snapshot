@@ -2,7 +2,7 @@
 --                                    ***** Start here only when all  Source Snowflake Account tasks are completed
 ---=========================================================================================================================
 
-/*STEP7 : Switch to another snowflake account and see the private sharing inbound data share where we can observe the data shared by primary ACCOUNT
+/*STEP8 : Switch to another snowflake account and see the private sharing inbound data share where we can observe the data shared by primary ACCOUNT
 If you can see then create a database on the shared object through Snowflake UI
 If you using Snowsight: Click on Download like symbol from the inbound SHARE
 Classic Console: Click on inbound datashare and create database
@@ -12,12 +12,12 @@ Once all the above steps followed You will be able to see the New Inbound datash
 */
 
 
-/*STEP	7.1 : Create separate new database to store the procedure and tables to store which are useful for tracking and updating the datashare object relations
+/*STEP	9 : Create separate new database to store the procedure and tables to store which are useful for tracking and updating the datashare object relations
 */
 CREATE OR REPLACE DATABASE SNAPSHOT;
 CREATE OR REPLACE SCHEMA AUTOMATION;
 
-/*STEP8 : Deploy the below procedure which copies the data from databashare objects to new tables at current timestamp
+/*STEP10 : Deploy the below procedure which copies the data from databashare objects to new tables at current timestamp
 */
 create or replace procedure snapshot.automation.DATASHARE_SNAPSHOT(TARGET_TBL_DB varchar,TARGET_TBL_SCHEMA varchar
                                                                   ,SHARE_DB_NAME varchar,share_schema_name varchar)
@@ -79,7 +79,7 @@ $$
 ;
 
 
-/*STEP9 : CALL the below procedure to FIRST SNAPSHOT of data from DATASHARE at procedure called timestamp
+/*STEP11 : CALL the below procedure to FIRST SNAPSHOT of data from DATASHARE at procedure called timestamp
 */
 CALL  snapshot.automation.DATASHARE_SNAPSHOT('SNAPSHOT_STREAMING','PRODUCTS_STREAMING','GLOBAL_SHARE_READ','PRODUCTS');
 
@@ -92,7 +92,7 @@ So even if the datashare is removed still our database will have the procedure c
 --===========================================================================================================================
 
 
-/*STEP10 : Create below tables which are useful for tracking and updating the datashare object relations
+/*STEP12 : Create below tables which are useful for tracking and updating the datashare object relations
 
 AUTOMATION.STREAM_RECORD_STATUS : Is the Status table/audit table which captures how many records got updated/deleted and inserted from datashare into table
 */
@@ -116,14 +116,14 @@ create or replace TABLE SNAPSHOT.AUTOMATION.STREAM_RECORD_STATUS (
 	STREAM_EXECUTED_TIME TIMESTAMP_NTZ(9)
 );
 
-/*STEP11 : Load the data into LOOKUP_MAP : It is the mapping table for identifying which stream has to load data into which target table4
+/*STEP13 : Load the data into LOOKUP_MAP : It is the mapping table for identifying which stream has to load data into which target table4
 and should be manually upload the records based on the number of objects which is necessary
 This can also be automated but naming standards will create mess up so did with manually
 
 LOOKUP_MAP_202305201715.csv
 */
 
-/*STEP11 :  Create the below procedure which run the merge statement on each stream if stream has data and loads into target table
+/*STEP14 :  Create the below procedure which run the merge statement on each stream if stream has data and loads into target table
 */
 create or replace procedure snapshot.automation.stream_merge_stream_has_data(SHARE_DB_NAME VARCHAR,STREAM_DB_NAME VARCHAR,STREAM_SCHEMA VARCHAR)
 RETURNS VARCHAR
@@ -212,7 +212,7 @@ while(application_list_result.next())
 return stream_exe_count+" streams got merged to tables "
 $$;
 
-/*STEP12 :  CALL the below procedure at first time to see how many streams got consumed if any changes are found datashare objects
+/*STEP15 :  CALL the below procedure at first time to see how many streams got consumed if any changes are found datashare objects
 */
 CALL snapshot.automation.stream_merge_stream_has_data('GLOBAL_SHARE_READ','SNAPSHOT_STREAMING','PRODUCTS_STREAMING');
 
@@ -230,13 +230,13 @@ as
    alter task task_to_merge_streams resume;
 
 
-/*STEP13 :  Want to Check the task hesitory and status of run run the below statement
+/*STEP16 :  Want to Check the task hesitory and status of run run the below statement
 */
 
 select * from table(information_schema.task_history())
 order by scheduled_time desc;
 
-/*STEP14 :  Query on below table to know the status of records executed from datashare to snapshot objects 
+/*STEP17 :  Query on below table to know the status of records executed from datashare to snapshot objects 
 */
 select * from SNAPSHOT.AUTOMATION.STREAM_RECORD_STATUS order by STREAM_EXECUTED_TIME desc;
 
