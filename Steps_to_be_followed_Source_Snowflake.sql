@@ -41,7 +41,59 @@ create or replace TABLE MY_DB.PRODUCTS.SUPPLIER (
 /*STEP2 : LOAD THE GIVEN CSV files into respective tables  */
 --Then load 3 tables which are given in csv format using snowflake UI
 
-/*STEP3 : DEPLOY THE PROCEDURE  */
+/*STEP3 : Create secure views on the source tables  */
+create or replace secure view MY_DB.PRODUCTS.V_AUTOINFO(
+	NAME,
+	UNITS,
+	SCALE,
+	FREQUENCY,
+	DATE,
+	VALUE,
+	KEY_ID
+) as
+SELECT 
+NAME,
+UNITS,
+SCALE,
+FREQUENCY,
+DATE,
+VALUE,
+KEY_ID
+FROM AUTO1;
+
+create or replace secure view MY_DB.PRODUCTS.V_GEOINFO(
+	PARENT_GEO_ID,
+	GEO_ID
+) as
+select 
+PARENT_GEO_ID,
+GEO_ID
+from geoinfo;
+
+create or replace secure view MY_DB.PRODUCTS.V_SUPPLIER(
+	SUPPLIER_COUNTRY,
+	SUPPLIER_DOMAIN,
+	SUPPLIER_NAME,
+	CUSTOMER_COUNTRY,
+	CUSTOMER_DOMAIN,
+	CUSTOMER_NAME,
+	CUSTOMER_PERMID,
+	SUPPLIER_KEY
+) as
+select 
+SUPPLIER_COUNTRY,
+SUPPLIER_DOMAIN,
+SUPPLIER_NAME,
+CUSTOMER_COUNTRY,
+CUSTOMER_DOMAIN,
+CUSTOMER_NAME,
+CUSTOMER_PERMID,
+SUPPLIER_KEY
+from supplier;
+
+--Ideally it good practise to specify the list of columns in select statement instead of using * (all) as any new column addition in base table will fail to fetch in the corresponding secure view
+
+/*STEP4 : DEPLOY THE PROCEDURE  */
 create or replace procedure MY_DB.PRODUCTS.ENABLE_CHANGE_TRACK_ON_SHARE(SHARE_DB_NAME VARCHAR,SHARE_SCHEMA VARCHAR)
 RETURNS VARCHAR
 LANGUAGE JAVASCRIPT
@@ -62,7 +114,7 @@ return count+" object's change_tracking mode is enabled"
 $$
 ;
 
-/*STEP4 : CREATE A SHARE ON THE SECURE VIEW OBJECTS USING BELOW SQL */
+/*STEP5 : CREATE A SHARE ON THE SECURE VIEW OBJECTS USING BELOW SQL */
 CREATE SHARE "MY_DB_SNOWFLAKE_SECURE_SHARE" COMMENT='Creating secure share of business views';
 GRANT USAGE ON DATABASE "MY_DB" TO SHARE "MY_DB_SNOWFLAKE_SECURE_SHARE";
 GRANT USAGE ON SCHEMA "MY_DB"."PRODUCTS" TO SHARE "MY_DB_SNOWFLAKE_SECURE_SHARE";
@@ -70,7 +122,7 @@ GRANT SELECT ON VIEW "MY_DB"."PRODUCTS"."V_AUTOINFO" TO SHARE "MY_DB_SNOWFLAKE_S
 GRANT SELECT ON VIEW "MY_DB"."PRODUCTS"."V_GEOINFO" TO SHARE "MY_DB_SNOWFLAKE_SECURE_SHARE";
 GRANT SELECT ON VIEW "MY_DB"."PRODUCTS"."V_SUPPLIER" TO SHARE "MY_DB_SNOWFLAKE_SECURE_SHARE";
 
-/*STEP5 : PROVIDE PROPER/CORRECT ACCOUNT ID OF ANOTHER ACCOUNT
+/*STEP6 : PROVIDE PROPER/CORRECT ACCOUNT ID OF ANOTHER ACCOUNT
 Snowflake comes with new feature as one organization can have multiple account so create new one get the account_name using SELECT CURRENT_ACCOUNT()  */
 --provide the proper account name
 ALTER SHARE "MY_DB_SNOWFLAKE_SECURE_SHARE" ADD ACCOUNTS = xyz; --give the correct account_name
@@ -80,7 +132,7 @@ SELECT 'ALTER VIEW '||TABLE_CATALOG||'.'||TABLE_SCHEMA||'.'||TABLE_NAME||' SET C
 WHERE TABLE_SCHEMA='PRODUCTS' AND TABLE_CATALOG='MY_DB';
 
 
-/*STEP6 : Execute the below statement to enable change_tracking_mode for shared objects from the schema
+/*STEP7 : Execute the below statement to enable change_tracking_mode for shared objects from the schema
 Please note here I am sharing all the secured views from schema to enabled change_tracking for all the tables */
 CALL MY_DB.PRODUCTS.ENABLE_CHANGE_TRACK_ON_SHARE('MY_DB','PRODUCTS');  --Here MY_DB is database and PRODUCTS is schema of the database shared
 
