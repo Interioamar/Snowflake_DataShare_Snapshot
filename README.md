@@ -15,11 +15,10 @@ with target objects . So user need snapshot (Persistant/Physicalized) data from
 which is persistant so that even the data share is been revoked/removed from the source snowflake still consumer 
 snowflake account will have snapshot data at particular timestamp by which testing/data pipeline can be smoothly handled.
 
-In some cases consumer snowflake account wanted to continuosly monitor
-the data changes happening in the source snowflake datashare and same
-neds to update in the consumer snowflake snapshot database objects(Like
-streaming the updated data from datashare using delete,insert and update
-DML operations)
+In some cases, consumer snowflake account user/analyst expect to continuosly monitor the data changes
+happening in the source snowflake datashare and same needs to be updated in the consumer snowflake 
+snapshot database objects(Like streaming the updated data from datashare using delete,insert and update DML operations).
+So in this case study we will be implementing the above two cases.
 
 **Challenges in Snowflake:**
 
