@@ -56,6 +56,8 @@ DML operations)
 
 -   Data Share
 
+-   Snowsight Dashboard
+
 **Understanding used database and other details**
 
 Source: Snowflake(Data Provider) SF1
