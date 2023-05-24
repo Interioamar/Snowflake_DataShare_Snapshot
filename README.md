@@ -10,13 +10,10 @@ Snowflake provide datashare feature which enables the read  access to the object
 snowflake account when it is shared to another snowflake
 account within or outside organization.
 
-Consider a scenario where user wanted to do testing with source objects
-and target objects where target objects are developed in another account
-of Snowflake . So user need snapshot (Persistant/Physicallized) data
-from inbound datashare into new database which is persistant so that
-even the data share is been revoked/removed from the source snowflake
-still consumer snowflake account will have snapshot data at particular
-timestamp by which testing/data pipeline can be smoothly handled.
+Most of the time, An analyst/user wants to do testing on source objects(Data Share objects from another Snowflake) 
+with target objects . So user need snapshot (Persistant/Physicalized) data from inbound datashare into new database 
+which is persistant so that even the data share is been revoked/removed from the source snowflake still consumer 
+snowflake account will have snapshot data at particular timestamp by which testing/data pipeline can be smoothly handled.
 
 In some cases consumer snowflake account wanted to continuosly monitor
 the data changes happening in the source snowflake datashare and same
@@ -24,12 +21,12 @@ neds to update in the consumer snowflake snapshot database objects(Like
 streaming the updated data from datashare using delete,insert and update
 DML operations)
 
-**Why this case study:**
+**Challenges in Snowflake:**
 
 -   Snowflake does not allow to do zero copy cloning on datashare
     objects and is read only.
 
--   Data snapshot can not be acheived on inbound datashare objects
+-   Data snapshot can not be acheived directly  on inbound datashare objects
 
 -   Data streaming to get the updated data from inbound datashare into
     snapshot database is not allowed
