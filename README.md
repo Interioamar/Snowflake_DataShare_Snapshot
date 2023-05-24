@@ -68,7 +68,7 @@ Language Used: SQL, JavaScript
 ![image2](https://github.com/Interioamar/Snowflake_DataShare_Snapshot/assets/107593984/33480fb2-f19b-4fe3-a171-b8c899046b7e)
 
 ### Merged records status from source snowflake to Consumer Snowflake
-![dashboard_stream_merged_data](https://github.com/Interioamar/Snowflake_DataShare_Snapshot/assets/107593984/ff2c0a50-e0bc-479f-bb84-ae7073c9d33a)
+![dashboard_stream_merged_data](https://github.com/Interioamar/Snowflake_DataShare_Snapshot/assets/107593984/4f656854-02bc-4360-b74c-8bd6b7188144)
 
 
 
